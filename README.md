@@ -116,6 +116,7 @@ O objeto Client é definido como:
 ### `/clients`
 
 ### Exemplo de Request:
+
 ```
 POST /clients
 Authorization: None
@@ -123,38 +124,42 @@ Content-type: application/json
 ```
 
 ### Corpo da Requisição:
+
 ```json
 {
-	"name": "jaque",
-    "email": "admin@com.br",
-    "password": "123",
-    "telephone": "123",
-	"admin": true
+  "name": "jaque",
+  "email": "admin@com.br",
+  "password": "123",
+  "telephone": "123",
+  "admin": true
 }
 ```
 
 ### Exemplo de Response:
+
 ```
 201 Created
 ```
 
 ```json
 {
-	"id": 4,
-	"name": "jaque",
-	"email": "admin@com.brl",
-	"telephone": "123",
-	"admin": true,
-	"createdAt": "2024-01-31",
-	"deletedAt": null
+  "id": 4,
+  "name": "jaque",
+  "email": "admin@com.brl",
+  "telephone": "123",
+  "admin": true,
+  "createdAt": "2024-01-31",
+  "deletedAt": null
 }
 ```
 
 ### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 409 Conflict   | Email already exists |
-| 400 Bad Request   | Required |
+
+| Código do Erro  | Descrição            |
+| --------------- | -------------------- |
+| 409 Conflict    | Email already exists |
+| 400 Bad Request | Required             |
+
 ---
 
 ---
@@ -164,6 +169,7 @@ Content-type: application/json
 ### `/clients`
 
 ### Exemplo de Request:
+
 ```
 GET /clients
 Authorization: Bearer token / Apenas admin tem acesso
@@ -171,37 +177,40 @@ Authorization: Bearer token / Apenas admin tem acesso
 ```
 
 ### Corpo da Requisição:
+
 ```json
 Vazio
 ```
 
 ### Exemplo de Response:
+
 ```
 200 OK
 ```
 
 ```json
 {
-	"clients": [
-		{
-			"id": 1,
-			"name": "jaque",
-			"email": "user@com.br",
-			"password": "$2a$10$GOVHRGPp2tBTkXSD7rUCzeWeskNaNSrH.JG35ajCWgdpVGjmFCySC",
-			"admin": false,
-			"telephone": "123",
-			"createdAt": "2024-01-31",
-			"deletedAt": null
-		} ] 
+  "clients": [
+    {
+      "id": 1,
+      "name": "jaque",
+      "email": "user@com.br",
+      "password": "$2a$10$GOVHRGPp2tBTkXSD7rUCzeWeskNaNSrH.JG35ajCWgdpVGjmFCySC",
+      "admin": false,
+      "telephone": "123",
+      "createdAt": "2024-01-31",
+      "deletedAt": null
+    }
+  ]
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
 
 ---
 
@@ -210,6 +219,7 @@ Vazio
 ### `/clients/:client_id/contacts`
 
 ### Exemplo de Request:
+
 ```
 GET /clients/:client_id/contacts
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
@@ -217,48 +227,51 @@ Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
 ```
 
 ### Corpo da Requisição:
+
 ```json
 Vazio
 ```
 
 ### Exemplo de Response:
+
 ```
 200 OK
 ```
 
 ```json
 {
-	"client": {
-		"id": 1,
-		"name": "jaque",
-		"email": "user@com.br",
-		"password": "$2a$10$GOVHRGPp2tBTkXSD7rUCzeWeskNaNSrH.JG35ajCWgdpVGjmFCySC",
-		"admin": false,
-		"telephone": "123",
-		"createdAt": "2024-01-31",
-		"deletedAt": null
-	},
-	"contacts": [
-		{
-			"id": 2,
-			"name": "jaque",
-			"email": "user@dmin.com",
-			"telephone": "123",
-			"createdAt": "2024-01-31",
-			"deletedAt": null,
-			"clientId": 1
-		} 
-    ]
+  "client": {
+    "id": 1,
+    "name": "jaque",
+    "email": "user@com.br",
+    "password": "$2a$10$GOVHRGPp2tBTkXSD7rUCzeWeskNaNSrH.JG35ajCWgdpVGjmFCySC",
+    "admin": false,
+    "telephone": "123",
+    "createdAt": "2024-01-31",
+    "deletedAt": null
+  },
+  "contacts": [
+    {
+      "id": 2,
+      "name": "jaque",
+      "email": "user@dmin.com",
+      "telephone": "123",
+      "createdAt": "2024-01-31",
+      "deletedAt": null,
+      "clientId": 1
+    }
+  ]
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | Client not found |
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 404 Not Found     | Client not found        |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
+
 ---
 
 ### 1.4. **Alterar Cliente**
@@ -266,6 +279,7 @@ Vazio
 ### `/clients/:client_id`
 
 ### Exemplo de Request:
+
 ```
 PATCH /clients/:client_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
@@ -279,14 +293,15 @@ Campos opcionais. Apenas admin não é alterável.
 
 ```json
 {
-	"name": "jaque",
-	"email": "admin@com.br",
-    "password": "123",
-	"telephone": "123"
+  "name": "jaque",
+  "email": "admin@com.br",
+  "password": "123",
+  "telephone": "123"
 }
 ```
 
 ### Exemplo de Response:
+
 ```
 200 OK
 ```
@@ -307,12 +322,13 @@ Campos opcionais. Apenas admin não é alterável.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | Client not found |
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
-| 409 Conflict   | Email already exists |
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 404 Not Found     | Client not found        |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
+| 409 Conflict      | Email already exists    |
+
 ---
 
 ### 1.5. **Deletar Cliente**
@@ -320,6 +336,7 @@ Campos opcionais. Apenas admin não é alterável.
 ### `/clients/:client_id`
 
 ### Exemplo de Request:
+
 ```
 DELETE /clients/:client_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
@@ -334,6 +351,7 @@ Vazio
 ```
 
 ### Exemplo de Response:
+
 ```
 204 OK
 ```
@@ -344,35 +362,36 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | Client not found |
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 404 Not Found     | Client not found        |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
+
 ---
 
 ## 2. **Contacts**
 
 O objeto Contact é definido como:
 
-| Campo     | Tipo    | Descrição                                   |
-| --------- | ------- | ------------------------------------------- |
-| id        | number  | Identificador único do contato              |
-| name      | string  | O nome do contato                          |
-| email     | string  | O e-mail do contato                        |
-| telephone | string  | O telefone do contato                      |
-| createdAt | string  | Data da criação do contato                  |
-| deletedAt | string  | Data da deleção do contato                  |
-| clientId | number  | Id do cliente                  |
+| Campo     | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| id        | number | Identificador único do contato |
+| name      | string | O nome do contato              |
+| email     | string | O e-mail do contato            |
+| telephone | string | O telefone do contato          |
+| createdAt | string | Data da criação do contato     |
+| deletedAt | string | Data da deleção do contato     |
+| clientId  | number | Id do cliente                  |
 
 ### Endpoints
 
-| Método | Rota                         | Descrição                          |
-| ------ | ---------------------------- | ---------------------------------- |
-| POST   | /contacts                     | Criação de um contato             |
-| GET    | /contacts                     | Lista todos os contatos            |
-| PATCH  | /contacts                     | Edita contato                      |
-| DELETE | /contacts                     | Deleta contato                     |
+| Método | Rota      | Descrição               |
+| ------ | --------- | ----------------------- |
+| POST   | /contacts | Criação de um contato   |
+| GET    | /contacts | Lista todos os contatos |
+| PATCH  | /contacts | Edita contato           |
+| DELETE | /contacts | Deleta contato          |
 
 ---
 
@@ -381,6 +400,7 @@ O objeto Contact é definido como:
 ### `/contacts`
 
 ### Exemplo de Request:
+
 ```
 POST /contacts
 Authorization: None
@@ -388,46 +408,50 @@ Content-type: application/json
 ```
 
 ### Corpo da Requisição:
+
 ```json
 {
-	"name": "jaque",
-    "email": "user@dmin.com.br",
-    "telephone": "123",
-	"clientId": 1
+  "name": "jaque",
+  "email": "user@dmin.com.br",
+  "telephone": "123",
+  "clientId": 1
 }
 ```
 
 ### Exemplo de Response:
+
 ```
 201 Created
 ```
 
 ```json
 {
-	"name": "jaque",
-	"email": "user@dmin.com.br",
-	"telephone": "123",
-	"clientId": 1,
-	"client": {
-		"id": 1,
-		"name": "jaque",
-		"email": "user@com.br",
-		"admin": false,
-		"telephone": "123",
-		"createdAt": "2024-01-31",
-		"deletedAt": null
-	},
-	"id": 8,
-	"createdAt": "2024-01-31",
-	"deletedAt": null
+  "name": "jaque",
+  "email": "user@dmin.com.br",
+  "telephone": "123",
+  "clientId": 1,
+  "client": {
+    "id": 1,
+    "name": "jaque",
+    "email": "user@com.br",
+    "admin": false,
+    "telephone": "123",
+    "createdAt": "2024-01-31",
+    "deletedAt": null
+  },
+  "id": 8,
+  "createdAt": "2024-01-31",
+  "deletedAt": null
 }
 ```
 
 ### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 409 Conflict   | Email already exists |
-| 400 Bad Request   | Required |
+
+| Código do Erro  | Descrição            |
+| --------------- | -------------------- |
+| 409 Conflict    | Email already exists |
+| 400 Bad Request | Required             |
+
 ---
 
 ### 2.2. **Listando Contatos**
@@ -435,6 +459,7 @@ Content-type: application/json
 ### `/contacts`
 
 ### Exemplo de Request:
+
 ```
 GET /contacts
 Authorization: Bearer token / Apenas admin tem acesso
@@ -442,38 +467,39 @@ Authorization: Bearer token / Apenas admin tem acesso
 ```
 
 ### Corpo da Requisição:
+
 ```json
 Vazio
 ```
 
 ### Exemplo de Response:
+
 ```
 200 OK
 ```
 
 ```json
 {
-	
-	"contacts": [
-		{
-			"id": 2,
-			"name": "jaque",
-			"email": "user@dmin.com.br",
-			"telephone": "123",
-			"createdAt": "2024-01-31",
-			"deletedAt": null,
-			"clientId": 1
-		}
-	 ] 
+  "contacts": [
+    {
+      "id": 2,
+      "name": "jaque",
+      "email": "user@dmin.com.br",
+      "telephone": "123",
+      "createdAt": "2024-01-31",
+      "deletedAt": null,
+      "clientId": 1
+    }
+  ]
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
 
 ---
 
@@ -482,6 +508,7 @@ Vazio
 ### `/contacts/:contact_id`
 
 ### Exemplo de Request:
+
 ```
 PATCH /contacts/:contact_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
@@ -495,14 +522,15 @@ Campos são opcionais.
 
 ```json
 {
-	"name": "jaque",
-	"email": "123@123.bn",
-    "telephone": "123",
-	"clientId": 1
+  "name": "jaque",
+  "email": "123@123.bn",
+  "telephone": "123",
+  "clientId": 1
 }
 ```
 
 ### Exemplo de Response:
+
 ```
 200 OK
 ```
@@ -523,12 +551,13 @@ Campos são opcionais.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | Contact not found ou Client not found |
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
-| 409 Conflict   | Email already exists |
+| Código do Erro    | Descrição                             |
+| ----------------- | ------------------------------------- |
+| 404 Not Found     | Contact not found ou Client not found |
+| 401 Unhauthorized | Missing bearer token                  |
+| 403 Forbidden     | Insufficient permission               |
+| 409 Conflict      | Email already exists                  |
+
 ---
 
 ### 2.4. **Deletar Cliente**
@@ -536,6 +565,7 @@ Campos são opcionais.
 ### `/contacts/:contact_id`
 
 ### Exemplo de Request:
+
 ```
 DELETE /contacts/:contact_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
@@ -550,6 +580,7 @@ Vazio
 ```
 
 ### Exemplo de Response:
+
 ```
 204 OK
 ```
@@ -560,16 +591,71 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | Contact not found |
-| 401 Unhauthorized   | Missing bearer token |
-| 403 Forbidden   | Insufficient permission |
----
+| Código do Erro    | Descrição               |
+| ----------------- | ----------------------- |
+| 404 Not Found     | Contact not found       |
+| 401 Unhauthorized | Missing bearer token    |
+| 403 Forbidden     | Insufficient permission |
 
 ---
 
+## 3. **Login**
 
+### Endpoints
+
+| Método | Rota      | Descrição             |
+| ------ | --------- | --------------------- |
+| POST   | /contacts | Criação de um contato |
+
+---
+
+### 3.1. **Login**
+
+### `/login`
+
+### Exemplo de Request:
+
+```
+POST /login
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "email": "user@dmin.com.br",
+  "password": "jaque"
+}
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGNvbS5iciIsImFkbWluIjp0cnVlLCJpYXQiOjE3MDY3MzYyOTIsImV4cCI6MTcwNjc0NzA5Miwic3ViIjoiMiJ9.-3g_F47Fcu1JQDL-0ObA0lCeviS-eCtagDz32lewyvE",
+  "admin": true,
+  "telephone": "123",
+  "name": "jaque",
+  "email": "admin@com.br"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro    | Descrição                         |
+| ----------------- | --------------------------------- |
+| 401 Unhauthorized | Invalid email ou Invalid password |
+| 400 Bad Request   | Required                          |
+
+---
+
+---
 
 ## Contato
 
