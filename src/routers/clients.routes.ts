@@ -25,6 +25,7 @@ export const clientRouter: Router = Router();
 
 clientRouter.post(
   "/",
+  
   validateBodyClient(createClientSchema),
   verifyUniqueClientEmail,
   createClientController

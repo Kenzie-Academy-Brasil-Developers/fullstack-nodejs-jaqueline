@@ -74,8 +74,8 @@ npm run typeorm:run
   - [POST - /clients](#11-criação-de-cliente)
   - [GET - /clients](#12-listando-clientes)
   - [GET - /clients/:client_id/contacts](#13-listar-contatos-por-cliente)
-    - [PATCH - /clients/:client_id](#13-alterar-cliente)
-    - [DELETE - /clients/:client_id](#14-deletar-cliente)
+  - [PATCH - /clients/:client_id](#13-alterar-cliente)
+  - [DELETE - /clients/:client_id](#14-deletar-cliente)
 - [Contacts](#2-contacts)
   - [POST - /contacts](#21-criação-de-contato)
   - [GET - /contacts](#22-listando-contatos)
@@ -110,6 +110,96 @@ O objeto Client é definido como:
 | DELETE | /clients                     | Deleta cliente                     |
 
 ---
+
+### 1.1. **Criação de Cliente**
+
+### `/clients`
+
+### Exemplo de Request:
+```
+POST /clients
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"name": "jaque",
+    "email": "admin@com.br",
+    "password": "123",
+    "telephone": "123",
+	"admin": true
+}
+```
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"id": 4,
+	"name": "jaque",
+	"email": "admin@com.brl",
+	"telephone": "123",
+	"admin": true,
+	"createdAt": "2024-01-31",
+	"deletedAt": null
+}
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 409 Conflict   | Email already exists |
+| 400 Bad Request   | Required |
+---
+
+---
+
+### 1.2. **Listando Clientes**
+
+### `/clients`
+
+### Exemplo de Request:
+```
+GET /clients
+Authorization: Bearer token / Apenas admin tem acesso
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+
+```json
+{
+	"clients": [
+		{
+			"id": 1,
+			"name": "jaque",
+			"email": "user@com.br",
+			"admin": false,
+			"telephone": "123",
+			"createdAt": "2024-01-31",
+			"deletedAt": null
+		} ] 
+}
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
 
 ## Contato
 
