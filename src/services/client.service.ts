@@ -21,7 +21,7 @@ export const createClientService = async (
 };
 
 export const readAllClientsService = async () => {
-  const users: Client[] = await clientRepo.find({
+  const users = await clientRepo.find({
     withDeleted: true,
   });
 
@@ -53,9 +53,7 @@ export const readAllContactsFromClientService = async (clientId: number) => {
   });
   const contacts: Contact[] = await contactRepo.find({
     where: { clientId: Number(clientId) },
-    relations: {
-      client: true,
-    },
+    
   });
 
   const data = {
