@@ -80,7 +80,7 @@ npm run typeorm:run
   - [POST - /contacts](#21-criação-de-contato)
   - [GET - /contacts](#22-listando-contatos)
   - [PATCH - /contacts/:contact_id](#23-alterar-contato)
-  - [DELETE - /contacts/:contact_id](#24-deletar-contato)(#13-listar-usuário-por-id)
+  - [DELETE - /contacts/:contact_id](#24-deletar-contato)
 - [Login](#3-login)
   - [POST - /login](#31-login)
 
@@ -313,6 +313,258 @@ Campos opcionais. Apenas admin não é alterável.
 | 401 Unhauthorized   | Missing bearer token |
 | 403 Forbidden   | Insufficient permission |
 | 409 Conflict   | Email already exists |
+---
+
+### 1.5. **Deletar Cliente**
+
+### `/clients/:client_id`
+
+### Exemplo de Request:
+```
+DELETE /clients/:client_id
+Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+204 OK
+```
+
+```json
+Vazio
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 404 Not Found   | Client not found |
+| 401 Unhauthorized   | Missing bearer token |
+| 403 Forbidden   | Insufficient permission |
+---
+
+## 2. **Contacts**
+
+O objeto Contact é definido como:
+
+| Campo     | Tipo    | Descrição                                   |
+| --------- | ------- | ------------------------------------------- |
+| id        | number  | Identificador único do contato              |
+| name      | string  | O nome do contato                          |
+| email     | string  | O e-mail do contato                        |
+| telephone | string  | O telefone do contato                      |
+| createdAt | string  | Data da criação do contato                  |
+| deletedAt | string  | Data da deleção do contato                  |
+| clientId | number  | Id do cliente                  |
+
+### Endpoints
+
+| Método | Rota                         | Descrição                          |
+| ------ | ---------------------------- | ---------------------------------- |
+| POST   | /contacts                     | Criação de um contato             |
+| GET    | /contacts                     | Lista todos os contatos            |
+| PATCH  | /contacts                     | Edita contato                      |
+| DELETE | /contacts                     | Deleta contato                     |
+
+---
+
+### 2.1. **Criação de Contact**
+
+### `/contacts`
+
+### Exemplo de Request:
+```
+POST /contacts
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"name": "jaque",
+    "email": "user@dmin.com.br",
+    "telephone": "123",
+	"clientId": 1
+}
+```
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"name": "jaque",
+	"email": "user@dmin.com.br",
+	"telephone": "123",
+	"clientId": 1,
+	"client": {
+		"id": 1,
+		"name": "jaque",
+		"email": "user@com.br",
+		"admin": false,
+		"telephone": "123",
+		"createdAt": "2024-01-31",
+		"deletedAt": null
+	},
+	"id": 8,
+	"createdAt": "2024-01-31",
+	"deletedAt": null
+}
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 409 Conflict   | Email already exists |
+| 400 Bad Request   | Required |
+---
+
+### 2.2. **Listando Contatos**
+
+### `/contacts`
+
+### Exemplo de Request:
+```
+GET /contacts
+Authorization: Bearer token / Apenas admin tem acesso
+
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+
+```json
+{
+	
+	"contacts": [
+		{
+			"id": 2,
+			"name": "jaque",
+			"email": "user@dmin.com.br",
+			"telephone": "123",
+			"createdAt": "2024-01-31",
+			"deletedAt": null,
+			"clientId": 1
+		}
+	 ] 
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 401 Unhauthorized   | Missing bearer token |
+| 403 Forbidden   | Insufficient permission |
+
+---
+
+### 2.3. **Alterar Contato**
+
+### `/contacts/:contact_id`
+
+### Exemplo de Request:
+```
+PATCH /contacts/:contact_id
+Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+Campos são opcionais.
+
+```json
+{
+	"name": "jaque",
+	"email": "123@123.bn",
+    "telephone": "123",
+	"clientId": 1
+}
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+
+```json
+{
+	{
+	"id": 1,
+	"name": "jaque",
+	"email": "123@123.bn.gg",
+	"telephone": "123",
+	"createdAt": "2024-01-31",
+	"deletedAt": null,
+	"clientId": 2
+}
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 404 Not Found   | Contact not found ou Client not found |
+| 401 Unhauthorized   | Missing bearer token |
+| 403 Forbidden   | Insufficient permission |
+| 409 Conflict   | Email already exists |
+---
+
+### 2.4. **Deletar Cliente**
+
+### `/contacts/:contact_id`
+
+### Exemplo de Request:
+```
+DELETE /contacts/:contact_id
+Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
+Content-type: application/json
+
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+204 OK
+```
+
+```json
+Vazio
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição |
+|----------------|-----------|
+| 404 Not Found   | Contact not found |
+| 401 Unhauthorized   | Missing bearer token |
+| 403 Forbidden   | Insufficient permission |
 ---
 
 ---

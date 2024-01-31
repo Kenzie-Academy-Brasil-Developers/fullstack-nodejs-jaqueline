@@ -38,9 +38,9 @@ export const updateClientService = async (
 ): Promise<ClientReturn> => {
   const userUpdate: Client = clientRepo.create({ ...user, ...data });
 
-  await clientRepo.save(userUpdate);
+  const clientUpdate = await clientRepo.save(userUpdate);
 
-  return clientReturnSchema.parse(userUpdate);
+  return clientUpdate
 };
 
 export const deleteClientService = async (user: Client): Promise<void> => {

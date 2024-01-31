@@ -10,9 +10,14 @@ export const verifyUniqueClientEmail = async (
   next: NextFunction
 ): Promise<void> => {
   const { email } = req.body;
-  const clientsEmails: Client | null = await clientRepo.findOneBy({ email });
 
-  if (clientsEmails) throw new AppError("Email already exists", 409);
+  if (email) {
+    const clientsEmails: Client | null = await clientRepo.findOneBy({ email });
+
+    if (clientsEmails) {
+      throw new AppError("Email already exists", 409);
+    }
+  }
 
   return next();
 };

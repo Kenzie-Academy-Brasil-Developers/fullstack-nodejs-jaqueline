@@ -10,11 +10,14 @@ export const verifyUniqueContactEmail = async (
   next: NextFunction
 ): Promise<void> => {
   const { email } = req.body;
-  const contactsEmails: Contact | null = await contactRepo.findOne({
-    where: { email },
-  });
 
-  if (contactsEmails) throw new AppError("Email already exists", 409);
+  if (email) {
+    const contactsEmails: Contact | null = await contactRepo.findOneBy({ email });
+
+    if (contactsEmails) {
+      throw new AppError("Email already exists", 409);
+    }
+  }
 
   return next();
 };
@@ -63,16 +66,4 @@ export const verifyBodyClientExists = async (
   return next();
 };
 
-export const verifyClientExistsInBody = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  const { clientId } = req.body;
 
-  if (!clientId) {
-    throw new AppError("clientId is required", 404);
-  }
-
-  return next();
-};

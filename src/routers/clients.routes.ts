@@ -44,7 +44,7 @@ clientRouter.delete(
   "/:id",
   verifyUserExists,
   verifyToken,
-  verifyAdmin,
+  verifyPermissions,
   deleteClientController
 );
 clientRouter.get(

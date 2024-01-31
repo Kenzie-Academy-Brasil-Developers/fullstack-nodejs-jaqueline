@@ -12,7 +12,6 @@ import {
 import {
   validateBodyContact,
   verifyBodyClientExists,
-  verifyClientExistsInBody,
   verifyContactExists,
   verifyUniqueContactEmail,
 } from "../middlewares/contacts.middleware";
@@ -34,7 +33,6 @@ contactRouter.get("/", verifyToken, verifyAdmin, readAllContactsController);
 contactRouter.patch(
   "/:id",
   verifyContactExists,
-  verifyClientExistsInBody,
   verifyBodyClientExists,
   verifyUniqueContactEmail,
   validateBodyContact(updateContactSchema),
