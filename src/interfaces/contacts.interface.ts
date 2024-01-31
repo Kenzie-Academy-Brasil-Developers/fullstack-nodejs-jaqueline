@@ -1,9 +1,11 @@
 import { z } from "zod";
 import { DeepPartial, Repository } from "typeorm";
 import Contact from "../entities/Contact.entity";
-import { createContactSchema, readAllContactsSchema, updateContactSchema } from "../schemas/contacts.schema";
+import { contactSchema, createContactSchema, readAllContactsSchema } from "../schemas/contacts.schema";
 
-export type CreateCategory = z.infer<typeof createContactSchema>
+export type CreateContact = z.infer<typeof createContactSchema>
 export type ReadAllContacts = z.infer<typeof readAllContactsSchema>
-export type ContactUpdate = DeepPartial<typeof updateContactSchema>
+export type ContactBodyUpdate = Omit<CreateContact, "createdAt" | "deletedAt" >
+export type ContactUpdate = DeepPartial<ContactBodyUpdate>
+export type ContactReturn = z.infer<typeof contactSchema>
 export type ContactRepo = Repository<Contact>

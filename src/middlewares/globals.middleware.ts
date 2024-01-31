@@ -1,51 +1,47 @@
-import 'dotenv/config'
+import "dotenv/config";
 import { NextFunction, Request, Response } from "express";
-import { ZodTypeAny } from "zod";
 import AppError from "../errors/AppErrors.error";
 import { verify } from "jsonwebtoken";
 
-export const validateBody = (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction): void => {
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { authorization } = req.headers;
 
-    
-        req.body = schema.parse(req.body);
-    
-    
-        if (typeof req.body.admin === 'undefined') {
-       
-          req.body.admin = false; 
-        }
+  if (!authorization) throw new AppError("Missing bearer token", 401);
 
-        next();
-     
-}
+  const token: string = authorization.split(" ")[1];
+  const decoded = verify(token, process.env.SECRET_KEY!);
+  res.locals = { ...res.locals, decoded };
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
-  const {authorization} = req.headers
+  return next();
+};
 
-  if(!authorization) throw new AppError('Missing bearer token', 401)
+export const verifyAdmin = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { admin } = res.locals.decoded;
 
-  const token: string = authorization.split(' ')[1]
-  const decoded = verify(token, process.env.SECRET_KEY!)
-  res.locals = {...res.locals, decoded}
+  if (!admin) throw new AppError("Insufficient permission", 403);
 
-  return next()
-}
+  return next();
+};
 
-export const verifyAdmin = (req: Request, res: Response, next: NextFunction): void => {
-  const {admin} = res.locals.decoded
+export const verifyPermissions = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { id } = req.params;
+  const { sub, admin } = res.locals.decoded;
 
-  if(!admin) throw new AppError('Insufficient permission', 403)
+  if (admin) return next();
 
-  return next()
-}
+  if (id !== sub) throw new AppError("Insufficient permission", 403);
 
-export const verifyPermissions = (req: Request, res: Response, next: NextFunction): void => {
-  const {id} = req.params
-  const {sub, admin} = res.locals.decoded
-
-  if(admin) return next()
-
-  if(id !== sub) throw new AppError('Insufficient permission', 403)
-
-  return next()
-}
+  return next();
+};

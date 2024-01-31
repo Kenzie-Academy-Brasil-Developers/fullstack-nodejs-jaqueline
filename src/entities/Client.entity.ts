@@ -20,8 +20,8 @@ export default class Client {
   @Column({ default: false })
   admin: boolean
 
-  @Column()
-  telephone: number
+  @Column({ length: 120 })
+  telephone: string
 
   @CreateDateColumn({ type: 'date' })
   createdAt: string

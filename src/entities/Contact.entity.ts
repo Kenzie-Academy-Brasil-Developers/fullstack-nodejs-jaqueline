@@ -1,5 +1,5 @@
 import Client from "./Client.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('contacts')
@@ -10,7 +10,7 @@ export default class Contact {
   @Column({ length: 120 })
   name: string
 
-  @Column({ length: 45, unique: true })
+  @Column({ length: 45 })
   email: string
 
   @Column({ length: 20 })
@@ -19,6 +19,12 @@ export default class Contact {
   @CreateDateColumn({ type: 'date' })
   createdAt: string
 
-  @ManyToOne(() => Client, client => client.contacts) 
+  @DeleteDateColumn({name: 'deletedAt', type: 'date', nullable: true })
+  deletedAt: string | null
+
+  @ManyToOne(() => Client, (client) => client.contacts) 
   client: Client
+
+  @Column()
+  clientId: number
 }
