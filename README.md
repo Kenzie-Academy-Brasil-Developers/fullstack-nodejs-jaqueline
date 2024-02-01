@@ -36,20 +36,14 @@ Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nov
 
 ## Uso
 
-Para rodar o projeto:
-
-```
-npm start
-```
-
-ou
+Para rodar o projeto em desenvolvimento:
 
 ```
  npm run dev
 ```
 
-Configurado para rodar em http://localhost:3000/
-
+Configurado para rodar em desenvolvimento http://localhost:3000/
+Para rodar em produção https://fullstack-node-render.onrender.com/
 ---
 
 ## Configuração
