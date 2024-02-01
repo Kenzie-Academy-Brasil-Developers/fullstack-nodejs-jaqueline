@@ -42,6 +42,7 @@ Para rodar o projeto em desenvolvimento:
  npm run dev
 ```
 
+O arquivo worspacke-deploy_render é para teste no Insomnia, com ambiente configurado para produção e desenvolvimento
 Configurado para rodar em desenvolvimento http://localhost:3000/
 Para rodar em produção https://fullstack-node-render.onrender.com/
 ---
