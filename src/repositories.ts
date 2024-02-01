@@ -1,5 +1,5 @@
 import Client from "./entities/Client.entity";
-import { AppDataSource } from "./dataSource";
+import { AppDataSource } from "./data-source";
 import { ClientRepo } from "./interfaces/clients.interface";
 import { ContactRepo } from "./interfaces/contacts.interface";
 import Contact from "./entities/Contact.entity";
