@@ -10,6 +10,7 @@ import {
   clientReturnSchema,
 } from "../schemas/clients.schema";
 
+
 export const createClientService = async (
   data: ClientCreate
 ): Promise<ClientReturn> => {
@@ -44,7 +45,8 @@ export const updateClientService = async (
 };
 
 export const deleteClientService = async (user: Client): Promise<void> => {
-  await clientRepo.softRemove(user);
+
+  await clientRepo.remove(user);
 };
 
 export const readAllContactsFromClientService = async (clientId: number) => {

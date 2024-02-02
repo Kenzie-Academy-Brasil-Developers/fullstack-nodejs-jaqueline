@@ -1,44 +1,55 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { getRounds, hashSync } from "bcryptjs";
 import Contact from "./Contact.entity";
 
-
-@Entity('clients')
+@Entity("clients")
 export default class Client {
-  @PrimaryGeneratedColumn('increment')
-  id: number
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Column({ length: 120 })
-  name: string
+  name: string;
 
   @Column({ length: 45, unique: true })
-  email: string
+  email: string;
 
   @Column({ length: 120 })
-  password: string
+  password: string;
 
   @Column({ default: false })
-  admin: boolean
+  admin: boolean;
 
   @Column({ length: 120 })
-  telephone: string
+  telephone: string;
 
-  @CreateDateColumn({ type: 'date' })
-  createdAt: string
+  @CreateDateColumn({ type: "date" })
+  createdAt: string;
 
-  @DeleteDateColumn({name: 'deletedAt', type: 'date', nullable: true })
-  deletedAt: string | null
+  @DeleteDateColumn({ name: "deletedAt", type: "date", nullable: true })
+  deletedAt: string | null;
 
-  @OneToMany(() => Contact, (contact) => contact.client)
-  contacts: Contact[]
+  @OneToMany(() => Contact, (contact) => contact.client, {
+    onDelete: "CASCADE",
+  })
+  contacts: Contact[];
 
   @BeforeInsert()
   @BeforeUpdate()
   hashPassword() {
-    const hasRounds: number = getRounds(this.password)
+    const hasRounds: number = getRounds(this.password);
 
-    if(!hasRounds) {
-      this.password = hashSync(this.password, 10)
+    if (!hasRounds) {
+      this.password = hashSync(this.password, 10);
     }
   }
 }

@@ -55,5 +55,5 @@ export const readAllContactsService = async () => {
 
 
 export const deleteContactService = async (contact: Contact): Promise<void> => {
-  await contactRepo.softRemove(contact)
+  await contactRepo.remove(contact)
 }

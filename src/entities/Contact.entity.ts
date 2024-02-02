@@ -22,7 +22,9 @@ export default class Contact {
   @DeleteDateColumn({name: 'deletedAt', type: 'date', nullable: true })
   deletedAt: string | null
 
-  @ManyToOne(() => Client, (client) => client.contacts) 
+  @ManyToOne(() => Client, (client) => client.contacts, {
+    onDelete: "CASCADE",
+  }) 
   client: Client
 
   @Column()

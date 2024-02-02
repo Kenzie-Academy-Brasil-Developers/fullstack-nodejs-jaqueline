@@ -29,7 +29,7 @@ contactRouter.post(
   validateBodyContact(createContactSchema),
   createContactController
 );
-contactRouter.get("/", verifyToken, verifyAdmin, readAllContactsController);
+contactRouter.get("/", readAllContactsController);
 contactRouter.patch(
   "/:id",
   verifyContactExists,

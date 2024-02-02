@@ -351,7 +351,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-204 OK
+204 No Content
 ```
 
 ```json
@@ -580,7 +580,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-204 OK
+204 No Content
 ```
 
 ```json

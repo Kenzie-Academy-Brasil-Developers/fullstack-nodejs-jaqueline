@@ -39,7 +39,7 @@ clientRouter.patch(
   verifyPermissions,
   updateClientController
 );
-clientRouter.get("/", verifyToken, verifyAdmin, readAllClientsController);
+clientRouter.get("/", readAllClientsController);
 clientRouter.delete(
   "/:id",
   verifyUserExists,
