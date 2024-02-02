@@ -21,6 +21,7 @@ export const loginService = async (data: ClientLogin): Promise<LoginReturn> => {
     process.env.SECRET_KEY!,
     { subject: client.id.toString(), expiresIn: process.env.EXPIRES_IN! }
   );
+  const id = client.id;
 
   const admin = client.admin;
 
@@ -32,6 +33,7 @@ export const loginService = async (data: ClientLogin): Promise<LoginReturn> => {
 
   const dataLogin = {
     token: token,
+    id: id,
     admin: admin,
     telephone: telephone,
     name: name,
