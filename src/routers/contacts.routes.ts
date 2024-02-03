@@ -20,6 +20,7 @@ import {
   verifyPermissions,
   verifyToken,
 } from "../middlewares/globals.middleware";
+import { verifyEmailIsTheSame } from "../middlewares/clients.middleware";
 
 export const contactRouter: Router = Router();
 
@@ -34,7 +35,7 @@ contactRouter.patch(
   "/:id",
   verifyContactExists,
   verifyBodyClientExists,
-  verifyUniqueContactEmail,
+  verifyEmailIsTheSame,
   validateBodyContact(updateContactSchema),
   verifyToken,
   verifyPermissions,
