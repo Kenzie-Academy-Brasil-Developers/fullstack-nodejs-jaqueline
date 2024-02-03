@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../errors/AppErrors.error";
-import { clientRepo } from "../repositories";
+import { clientRepo, contactRepo } from "../repositories";
 import Client from "../entities/Client.entity";
 import { ZodTypeAny } from "zod";
 
@@ -20,31 +20,6 @@ export const verifyUniqueClientEmail = async (
   }
 
   return next();
-};
-
-export const verifyEmailIsTheSame = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  const { email } = req.body;
-
-  try {
-    // Obtenha o cliente existente pelo ID
-    const clientsEmails = await clientRepo.findOneBy({ email });
-
-    // Verifique se o email foi alterado
-    if (clientsEmails !== email) {
-      // Se o email foi alterado, atualize o cliente
-      return next();
-    } else {
-      // Se o email não foi alterado, retorne uma mensagem indicando que o email permanece o mesmo
-      res.status(200).send({ message: 'The email was note altered' });
-    }
-  } catch (error) {
-    // Se ocorrer um erro, retorne uma resposta de erro
-    throw new AppError("Internal Error", 500);
-  }
 };
 
 export const validateBodyClient =

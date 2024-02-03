@@ -10,7 +10,7 @@ import {
 } from "../middlewares/globals.middleware";
 import {
   validateBodyClient,
-  verifyEmailIsTheSame,
+
   verifyUniqueClientEmail,
   verifyUserExists,
 } from "../middlewares/clients.middleware";
@@ -35,7 +35,7 @@ clientRouter.patch(
   "/:id",
   verifyUserExists,
   validateBodyClient(updateClientSchema),
-  verifyEmailIsTheSame,
+  verifyUniqueClientEmail,
   verifyToken,
   verifyPermissions,
   updateClientController
