@@ -15,7 +15,7 @@ import Contact from "./Contact.entity";
 @Entity("clients")
 export default class Client {
   @PrimaryGeneratedColumn("increment")
-  id: string;
+  id: number
 
   @Column({ length: 120 })
   name: string;
