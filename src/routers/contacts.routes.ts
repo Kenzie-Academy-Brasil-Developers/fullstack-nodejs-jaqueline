@@ -21,12 +21,10 @@ import {
   verifyToken,
 } from "../middlewares/globals.middleware";
 
-
 export const contactRouter: Router = Router();
 
 contactRouter.post(
   "/",
-  verifyUniqueContactEmail,
   validateBodyContact(createContactSchema),
   createContactController
 );
@@ -35,7 +33,6 @@ contactRouter.patch(
   "/:id",
   verifyContactExists,
   verifyBodyClientExists,
-  verifyUniqueContactEmail,
   validateBodyContact(updateContactSchema),
   verifyToken,
   verifyPermissions,

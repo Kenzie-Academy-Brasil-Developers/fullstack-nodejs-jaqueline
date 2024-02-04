@@ -11,9 +11,12 @@ export const createContactController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const contact = await createContactService(req.body);
+  
 
+  const contact = await createContactService(req.body);
   return res.status(201).json(contact);
+
+
 };
 
 export const readAllContactsController = async (
