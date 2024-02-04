@@ -28,5 +28,5 @@ export default class Contact {
   client: Client
 
   @Column()
-  clientId: number | string
+  clientId: string
 }
