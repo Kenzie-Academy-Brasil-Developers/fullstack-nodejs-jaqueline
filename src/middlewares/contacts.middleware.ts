@@ -66,4 +66,18 @@ export const verifyBodyClientExists = async (
   return next();
 };
 
+export const verifyPermissionsContacts = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { clientId } = req.params;
 
+  const { sub, admin } = res.locals.decoded;
+
+  if (admin) return next();
+
+  if (clientId !== sub) throw new AppError("Insufficient permission", 403);
+
+  return next();
+};

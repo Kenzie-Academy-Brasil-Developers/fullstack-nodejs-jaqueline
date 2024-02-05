@@ -13,12 +13,10 @@ import {
   validateBodyContact,
   verifyBodyClientExists,
   verifyContactExists,
+  verifyPermissionsContacts,
   verifyUniqueContactEmail,
 } from "../middlewares/contacts.middleware";
 import {
-  verifyAdmin,
-  verifyPermissions,
-  verifyPermissionsPatch,
   verifyToken,
 } from "../middlewares/globals.middleware";
 
@@ -36,13 +34,13 @@ contactRouter.patch(
   verifyBodyClientExists,
   validateBodyContact(updateContactSchema),
   verifyToken,
-  verifyPermissionsPatch,
+  verifyPermissionsContacts,
   updateContactController
 );
 contactRouter.delete(
-  "/:id",
+  "/:id/client/:clientId",
   verifyContactExists,
   verifyToken,
-  verifyPermissions,
+  verifyPermissionsContacts,
   deleteContactController
 );

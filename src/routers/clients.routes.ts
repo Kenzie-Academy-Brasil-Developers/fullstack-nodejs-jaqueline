@@ -4,7 +4,7 @@ import {
   updateClientSchema,
 } from "../schemas/clients.schema";
 import {
-  verifyAdmin,
+
   verifyPermissions,
   verifyToken,
 } from "../middlewares/globals.middleware";
