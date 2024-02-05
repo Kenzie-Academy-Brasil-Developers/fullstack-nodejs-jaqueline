@@ -7,12 +7,14 @@ import {
   readAllContactsFromClientService,
   updateClientService,
 } from "../services/client.service";
+import { hash } from "bcryptjs";
 
 export const createClientController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   const user: ClientReturn = await createClientService(req.body);
+
 
   return res.status(201).json(user);
 };
@@ -30,6 +32,9 @@ export const updateClientController = async (
   res: Response
 ): Promise<Response> => {
   const { user } = res.locals;
+
+
+
   const newClient = await updateClientService(req.body, user);
   return res.status(200).json(newClient);
 };

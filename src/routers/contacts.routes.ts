@@ -18,6 +18,7 @@ import {
 import {
   verifyAdmin,
   verifyPermissions,
+  verifyPermissionsPatch,
   verifyToken,
 } from "../middlewares/globals.middleware";
 
@@ -30,12 +31,12 @@ contactRouter.post(
 );
 contactRouter.get("/", readAllContactsController);
 contactRouter.patch(
-  "/:id",
+  "/:id/client/:clientId",
   verifyContactExists,
   verifyBodyClientExists,
   validateBodyContact(updateContactSchema),
   verifyToken,
-  verifyPermissions,
+  verifyPermissionsPatch,
   updateContactController
 );
 contactRouter.delete(

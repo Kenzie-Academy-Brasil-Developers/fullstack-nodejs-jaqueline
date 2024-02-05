@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import Client from "../entities/Client.entity";
 import Contact from "../entities/Contact.entity";
 import {
@@ -6,10 +7,7 @@ import {
   ClientUpdate,
 } from "../interfaces/clients.interface";
 import { clientRepo, contactRepo } from "../repositories";
-import {
-  clientReturnSchema,
-} from "../schemas/clients.schema";
-
+import { clientReturnSchema } from "../schemas/clients.schema";
 
 export const createClientService = async (
   data: ClientCreate
@@ -17,6 +15,7 @@ export const createClientService = async (
   const user: Client = clientRepo.create(data);
 
   await clientRepo.save(user);
+
 
   return clientReturnSchema.parse(user);
 };
@@ -41,11 +40,10 @@ export const updateClientService = async (
 
   const clientUpdate = await clientRepo.save(userUpdate);
 
-  return clientUpdate
+  return clientUpdate;
 };
 
 export const deleteClientService = async (user: Client): Promise<void> => {
-
   await clientRepo.remove(user);
 };
 
@@ -55,7 +53,6 @@ export const readAllContactsFromClientService = async (clientId: number) => {
   });
   const contacts: Contact[] = await contactRepo.find({
     where: { clientId: Number(clientId) },
-    
   });
 
   const data = {

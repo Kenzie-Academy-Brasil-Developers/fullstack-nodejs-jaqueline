@@ -37,11 +37,28 @@ export const verifyPermissions = (
   next: NextFunction
 ): void => {
   const { id } = req.params;
+
   const { sub, admin } = res.locals.decoded;
 
   if (admin) return next();
 
   if (id !== sub) throw new AppError("Insufficient permission", 403);
+
+  return next();
+};
+
+export const verifyPermissionsPatch = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { clientId } = req.params;
+
+  const { sub, admin } = res.locals.decoded;
+
+  if (admin) return next();
+
+  if (clientId !== sub) throw new AppError("Insufficient permission", 403);
 
   return next();
 };
