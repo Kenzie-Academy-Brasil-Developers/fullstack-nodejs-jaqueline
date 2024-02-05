@@ -11,6 +11,8 @@ import {
 import {
   validateBodyClient,
 
+  validateBodyClientPatch,
+
   verifyUniqueClientEmail,
   verifyUserExists,
 } from "../middlewares/clients.middleware";
@@ -34,7 +36,7 @@ clientRouter.post(
 clientRouter.patch(
   "/:id",
   verifyUserExists,
-  validateBodyClient(updateClientSchema),
+  validateBodyClientPatch(updateClientSchema),
   verifyUniqueClientEmail,
   verifyToken,
   verifyPermissions,

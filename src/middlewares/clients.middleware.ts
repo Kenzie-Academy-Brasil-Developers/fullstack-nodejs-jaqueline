@@ -22,7 +22,15 @@ export const verifyUniqueClientEmail = async (
   return next();
 };
 
-export const validateBodyClient =
+export const validateBodyClientPatch =
+  (schema: ZodTypeAny) =>
+  (req: Request, res: Response, next: NextFunction): void => {
+    req.body = schema.parse(req.body);
+
+    next();
+  };
+
+  export const validateBodyClient =
   (schema: ZodTypeAny) =>
   (req: Request, res: Response, next: NextFunction): void => {
     req.body = schema.parse(req.body);
