@@ -101,7 +101,7 @@ O objeto Client é definido como:
 
 | Método | Rota                         | Descrição                          |
 | ------ | ---------------------------- | ---------------------------------- |
-| POST   | /clients                     | Criação de um cliente.             |
+| POST   | /clients                     | Criação de um cliente             |
 | GET    | /clients                     | Lista todos os clientes            |
 | GET    | /clients/:client_id/contacts | Lista todos os contatos do cliente |
 | PATCH  | /clients                     | Edita cliente                      |
@@ -444,7 +444,6 @@ Content-type: application/json
 
 | Código do Erro  | Descrição            |
 | --------------- | -------------------- |
-| 409 Conflict    | Email already exists |
 | 400 Bad Request | Required             |
 
 ---
@@ -548,18 +547,17 @@ Campos são opcionais.
 | 404 Not Found     | Contact not found ou Client not found |
 | 401 Unhauthorized | Missing bearer token                  |
 | 403 Forbidden     | Insufficient permission               |
-| 409 Conflict      | Email already exists                  |
 
 ---
 
 ### 2.4. **Deletar Cliente**
 
-### `/contacts/:contact_id`
+### `/contacts/:contact_id/client/:client_id`
 
 ### Exemplo de Request:
 
 ```
-DELETE /contacts/:contact_id
+DELETE /contacts/:contact_id/client/:client_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
 Content-type: application/json
 
@@ -585,7 +583,7 @@ Vazio
 
 | Código do Erro    | Descrição               |
 | ----------------- | ----------------------- |
-| 404 Not Found     | Contact not found       |
+| 404 Not Found     | Contact not found ou Client not found       |
 | 401 Unhauthorized | Missing bearer token    |
 | 403 Forbidden     | Insufficient permission |
 
