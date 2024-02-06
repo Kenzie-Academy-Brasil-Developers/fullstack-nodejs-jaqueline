@@ -5,7 +5,7 @@ import { contactSchema, createContactSchema, readAllContactsSchema } from "../sc
 
 export type CreateContact = z.infer<typeof createContactSchema>
 export type ReadAllContacts = z.infer<typeof readAllContactsSchema>
-export type ContactBodyUpdate = Omit<CreateContact, "createdAt" | "deletedAt" >
+export type ContactBodyUpdate = Omit<CreateContact, "createdAt" | "deletedAt" | "clientId" >
 export type ContactUpdate = DeepPartial<ContactBodyUpdate>
 export type ContactReturn = z.infer<typeof contactSchema>
 export type ContactRepo = Repository<Contact>

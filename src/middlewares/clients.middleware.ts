@@ -42,12 +42,29 @@ export const validateBodyClientPatch =
     next();
   };
 
+export const verifyUserExistsToContact = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { id } = req.params;
+  const {clientId} = req.params
+  const user: Client | null = await clientRepo.findOneBy({ id: Number(id) });
+  const userContact: Client | null = await clientRepo.findOneBy({ id: Number(clientId) });
+
+  if (!user && !userContact) throw new AppError("Client not found", 404);
+
+
+  return next();
+};
+
 export const verifyUserExists = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   const { id } = req.params;
+
   const user: Client | null = await clientRepo.findOneBy({ id: Number(id) });
 
   if (!user) throw new AppError("Client not found", 404);

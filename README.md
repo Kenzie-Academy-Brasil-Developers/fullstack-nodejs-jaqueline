@@ -77,8 +77,8 @@ npm run typeorm:run
 - [Contacts](#2-contacts)
   - [POST - /contacts](#21-criação-de-contato)
   - [GET - /contacts](#22-listando-contatos)
-  - [PATCH - /contacts/:contact_id](#23-alterar-contato)
-  - [DELETE - /contacts/:contact_id](#24-deletar-contato)
+  - [PATCH - /contacts/:contact_id/client/:client_id](#23-alterar-contato)
+  - [DELETE - /contacts/:contact_id/client/:client_id](#24-deletar-contato)
 - [Login](#3-login)
   - [POST - /login](#31-login)
 
@@ -170,7 +170,7 @@ Content-type: application/json
 
 ```
 GET /clients
-Authorization: Bearer token / Apenas admin tem acesso
+Authorization: None
 
 ```
 
@@ -205,10 +205,7 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro    | Descrição               |
-| ----------------- | ----------------------- |
-| 401 Unhauthorized | Missing bearer token    |
-| 403 Forbidden     | Insufficient permission |
+Nenhum, no máximo retornar []
 
 ---
 
@@ -280,7 +277,7 @@ Vazio
 
 ```
 PATCH /clients/:client_id
-Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
+Authorization: Bearer token / Apenas admin
 Content-type: application/json
 
 ```
@@ -337,7 +334,7 @@ Campos opcionais. Apenas admin não é alterável.
 
 ```
 DELETE /clients/:client_id
-Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
+Authorization: Bearer token / Apenas admin 
 Content-type: application/json
 
 ```
@@ -388,8 +385,8 @@ O objeto Contact é definido como:
 | ------ | --------- | ----------------------- |
 | POST   | /contacts | Criação de um contato   |
 | GET    | /contacts | Lista todos os contatos |
-| PATCH  | /contacts | Edita contato           |
-| DELETE | /contacts | Deleta contato          |
+| PATCH  | /contacts/:contact_id/client/:client_id  | Edita contato           |
+| DELETE | /contacts/:contact_id/client/:client_id | Deleta contato          |
 
 ---
 
@@ -460,7 +457,7 @@ Content-type: application/json
 
 ```
 GET /contacts
-Authorization: Bearer token / Apenas admin tem acesso
+Authorization: None
 
 ```
 
@@ -494,21 +491,18 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro    | Descrição               |
-| ----------------- | ----------------------- |
-| 401 Unhauthorized | Missing bearer token    |
-| 403 Forbidden     | Insufficient permission |
+Nenhum, no máximo []
 
 ---
 
 ### 2.3. **Alterar Contato**
 
-### `/contacts/:contact_id`
+### `/contacts/:contact_id/client/:client_id`
 
 ### Exemplo de Request:
 
 ```
-PATCH /contacts/:contact_id
+PATCH /contacts/:contact_id/client/:client_id
 Authorization: Bearer token / Apenas admin e próprio cliente tem acesso
 Content-type: application/json
 

@@ -48,36 +48,27 @@ export const verifyContactExists = async (
   return next();
 };
 
-export const verifyBodyClientExists = async (
+
+export const verifyPermissionsContacts = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
-  const { clientId } = req.body;
-
-  const client = await clientRepo.findOneBy({ id: clientId });
-
-  if (!client) {
-    throw new AppError("Client not found", 404);
-  }
-
-  res.locals = { ...res.locals, client };
-
-  return next();
-};
-
-export const verifyPermissionsContacts = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  const { clientId } = req.params;
-
+) => {
+  const { id, clientId } = req.params;
   const { sub, admin } = res.locals.decoded;
+
+  const contactId = await contactRepo.findOneBy({ id: Number(id) });
+  res.locals = { ...res.locals, contactId };
+  const client_Id = res.locals.contactId.clientId;
+
+  if (clientId != client_Id) throw new AppError("No matching clients", 403)
 
   if (admin) return next();
 
-  if (clientId !== sub) throw new AppError("Insufficient permission", 403);
+  if (clientId !== sub ) throw new AppError("Insufficient permission", 403)
+
+
+
 
   return next();
 };

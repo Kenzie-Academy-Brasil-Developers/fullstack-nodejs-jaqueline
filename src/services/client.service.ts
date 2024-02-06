@@ -47,7 +47,7 @@ export const deleteClientService = async (user: Client): Promise<void> => {
   await clientRepo.remove(user);
 };
 
-export const readAllContactsFromClientService = async (clientId: number) => {
+export const readAllContactsFromClientService = async (clientId:any) => {
   const client: ClientReturn | null = await clientRepo.findOneBy({
     id: Number(clientId),
   });

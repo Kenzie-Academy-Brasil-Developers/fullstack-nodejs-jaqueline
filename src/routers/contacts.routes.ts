@@ -11,14 +11,13 @@ import {
 } from "../controllers/contact.controller";
 import {
   validateBodyContact,
-  verifyBodyClientExists,
   verifyContactExists,
-  verifyPermissionsContacts,
-  verifyUniqueContactEmail,
+  verifyPermissionsContacts
 } from "../middlewares/contacts.middleware";
 import {
   verifyToken,
 } from "../middlewares/globals.middleware";
+import { verifyUserExistsToContact } from "../middlewares/clients.middleware";
 
 export const contactRouter: Router = Router();
 
@@ -31,7 +30,7 @@ contactRouter.get("/", readAllContactsController);
 contactRouter.patch(
   "/:id/client/:clientId",
   verifyContactExists,
-  verifyBodyClientExists,
+  verifyUserExistsToContact,
   validateBodyContact(updateContactSchema),
   verifyToken,
   verifyPermissionsContacts,
@@ -40,6 +39,7 @@ contactRouter.patch(
 contactRouter.delete(
   "/:id/client/:clientId",
   verifyContactExists,
+  verifyUserExistsToContact,
   verifyToken,
   verifyPermissionsContacts,
   deleteContactController
