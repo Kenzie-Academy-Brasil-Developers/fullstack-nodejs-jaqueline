@@ -52,13 +52,7 @@ Para rodar em produção https://fullstack-node-render.onrender.com/
 
 ## Configuração
 
-Crie as migrations com o comando:
-
-```
-npm run typeorm migration:generate ./src/migrations/InitialMigration -- -d ./src/data-source.ts
-```
-
-depois execute com o comando:
+Executar o comando para migrations:
 
 ```
 npm run typeorm:run
@@ -550,7 +544,7 @@ Campos são opcionais.
 
 ---
 
-### 2.4. **Deletar Cliente**
+### 2.4. **Deletar Contato**
 
 ### `/contacts/:contact_id/client/:client_id`
 
